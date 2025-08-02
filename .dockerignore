@@ -1,0 +1,21 @@
+# Archivos y directorios a ignorar durante la construcción del Docker
+*.wav
+*.mp3
+*.mp4
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.git/
+.gitignore
+README.md
+.vscode/
+.idea/
+*.log
+.DS_Store
+output/
+*.tmp
+*.swp
+*.swo
