@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  music-generator:
+    build: .
+    container_name: music_generator_app
+    volumes:
+      # Montar el directorio actual para poder editar el código
+      - .:/app
+      # Montar un directorio específico para los archivos de salida
+      - ./output:/app/output
+    working_dir: /app
+    stdin_open: true    # Equivalente a -i (interactive)
+    tty: true          # Equivalente a -t (TTY)
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONDONTWRITEBYTECODE=1
+    # Comando por defecto
+    command: python main.py
+    
+    # Si quieres solo mantener el contenedor corriendo para desarrollo
+    # command: tail -f /dev/null
+    
+  # Servicio alternativo para desarrollo interactivo
+  music-dev:
+    build: .
+    container_name: music_generator_dev
+    volumes:
+      - .:/app
+      - ./output:/app/output
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+    profiles:
+      - dev
+
+# Volúmenes nombrados (opcional)
+volumes:
+  music_output:
+    driver: local
+
+# Red personalizada (opcional)
+networks:
+  music_network:
+    driver: bridge
